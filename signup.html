@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,7 +18,7 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: white ;
+            background-color: white;
             background-size: cover;
             background-position: center;
             filter: brightness(70%) saturate(120%);
@@ -39,25 +39,6 @@
             text-align: center;
             margin-bottom: 20px;
             font-weight: 600;
-        }
-
-        .social-buttons {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-        }
-
-        .social-buttons button {
-            flex: 1;
-            margin: 0 5px;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            background: white;
-            color: #2F4156;
-            font-weight: 500;
-            cursor: pointer;
         }
 
         .separator {
@@ -132,16 +113,18 @@
             <p>O</p>
             <div class="line"></div>
         </div>
-        <form>
-            <input type="text" placeholder="Nombre completo">
-         <input type="email" id="register-email" placeholder="Dirección de correo electrónico" class="form-control mb-2">
-            <input type="password" id="register-password" placeholder="Contraseña" class="form-control mb-2">
-            <button class="btn">Crear cuenta</button>
+        <form id="register-form">  <!-- ⚠️ AGREGADO ID AL FORMULARIO -->
+            <input type="text" id="register-name" placeholder="Nombre completo">
+            <input type="email" id="register-email" placeholder="Dirección de correo electrónico">
+            <input type="password" id="register-password" placeholder="Contraseña">
+            <button type="button" class="btn" id="register-btn">Crear cuenta</button>  <!-- ⚠️ CAMBIADO A type="button" -->
         </form>
         <div class="switch">
             <p>¿Ya tienes una cuenta? <a href="login.html">Iniciar sesión</a></p>
         </div>
     </div>
-    <script src="js/signup.js"></script>
+    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js"></script>
+<script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js"></script>
+    <script type="module" src="../js/signup.js"></script>
 </body>
 </html>
