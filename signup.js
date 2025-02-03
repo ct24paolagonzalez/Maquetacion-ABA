@@ -51,3 +51,8 @@ function registerUser(event) {
 
 // Asignar evento al botón de registro
 document.getElementById('register-btn').addEventListener('click', registerUser);
+
+document.getElementById('register-btn').addEventListener('click', function() {
+    // Aquí puedes agregar validaciones o lógica adicional
+    window.location.href = 'homepage.html'; // Redireccionar a la página homepage.html
+});
