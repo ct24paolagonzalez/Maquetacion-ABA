@@ -125,66 +125,55 @@
         </div>
     </div>
    
-    <script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js"></script>
-<script type="module" src="https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js"></script>
-
-<!-- Luego tu código JavaScript -->
-<script type="module">
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js';
-    import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js';
-
-    // Configuración de Firebase
-    const firebaseConfig = {
-        apiKey: "AIzaSyDHHi3h2G5VY4bCg92QWZOjM6Bl6pco2ro",
-        authDomain: "aba2025-8df97.firebaseapp.com",
-        projectId: "aba2025-8df97",
-        storageBucket: "aba2025-8df97.appspot.com",
-        messagingSenderId: "819645801939",
-        appId: "1:819645801939:web:2c4f13c8029003c434bb26"
-    };
-
-    // Inicializar Firebase
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
-
-    // Hacer registerUser disponible globalmente
-    window.registerUser = function(event) {
-        if (event) {
+    <form id="register-form" onsubmit="registerUser(event); return false;">
+        <input type="text" id="register-name" placeholder="Nombre completo" required>
+        <input type="email" id="register-email" placeholder="Dirección de correo electrónico" required>
+        <input type="password" id="register-password" placeholder="Contraseña" required>
+        <button type="submit" class="btn" id="register-btn">Crear cuenta</button>
+    </form>
+    
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js';
+        import { getAuth, createUserWithEmailAndPassword, sendEmailVerification } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js';
+    
+        const firebaseConfig = {
+            apiKey: "AIzaSyDHHi3h2G5VY4bCg92QWZOjM6Bl6pco2ro",
+            authDomain: "aba2025-8df97.firebaseapp.com",
+            projectId: "aba2025-8df97",
+            storageBucket: "aba2025-8df97.appspot.com",
+            messagingSenderId: "819645801939",
+            appId: "1:819645801939:web:2c4f13c8029003c434bb26"
+        };
+    
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+    
+        window.registerUser = async function(event) {
             event.preventDefault();
-        }
-
-        const email = document.getElementById('register-email').value;
-        const password = document.getElementById('register-password').value;
-        const name = document.getElementById('register-name').value;
-
-        if (!email || !password || !name) {
-            alert("Por favor, completa todos los campos.");
-            return;
-        }
-
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const user = userCredential.user;
-                console.log('Usuario registrado:', user);
-
-                // Enviar verificación de correo
-                sendEmailVerification(user)
-                    .then(() => {
-                        alert("Registro exitoso. Verifica tu correo electrónico antes de iniciar sesión.");
-                        window.location.href = 'homepage.html';
-                    })
-                    .catch((error) => {
-                        console.error("Error al enviar verificación de correo:", error.message);
-                    });
-            })
-            .catch((error) => {
-                console.error('Error al registrar usuario:', error.message);
+            
+            try {
+                const email = document.getElementById('register-email').value;
+                const password = document.getElementById('register-password').value;
+                const name = document.getElementById('register-name').value;
+    
+                if (!email || !password || !name) {
+                    alert("Por favor, completa todos los campos.");
+                    return;
+                }
+    
+                console.log("Intentando registrar con:", email); // Debug
+    
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log('Usuario creado:', userCredential.user); // Debug
+    
+                await sendEmailVerification(userCredential.user);
+                alert("Registro exitoso. Por favor verifica tu correo electrónico.");
+                window.location.href = 'homepage.html';
+            } catch (error) {
+                console.error('Error:', error); // Debug
                 alert(`Error: ${error.message}`);
-            });
-    }
-
-    // Asignar evento al botón de registro
-    document.getElementById('register-btn').addEventListener('click', registerUser);
-</script>
+            }
+        };
+    </script>
 </body>
 </html>
