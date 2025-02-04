@@ -95,7 +95,7 @@ form .btn:hover {
     <div class="container">
         <header>¡Bienvenido de nuevo!</header>
         <section class="formulario-iniciosesion">
-            <form id="formulario-sesion" onsubmit="loginUser(); return false;">
+            <form id="formulario-sesion" onsubmit="loginUser(event); return false;">
                 <label for="email">Correo electrónico:</label>
                 <input type="email" id="login-email" name="email" class="form-control mb-2" required><br><br>
                 
@@ -109,12 +109,7 @@ form .btn:hover {
             </div>
         </section>
     </div>
-    <form id="formulario-sesion" onsubmit="loginUser(event); return false;">
-        <input type="email" id="login-email" required>
-        <input type="password" id="login-password" required>
-        <button type="submit" class="btn">Iniciar sesión</button>
-    </form>
-    
+
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-app.js';
         import { getAuth, signInWithEmailAndPassword } from 'https://www.gstatic.com/firebasejs/11.2.0/firebase-auth.js';
